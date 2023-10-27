@@ -1,0 +1,1 @@
+psql -h localhost -d adventuredb -U dev -p 5432

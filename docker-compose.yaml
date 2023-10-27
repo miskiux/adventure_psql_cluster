@@ -1,0 +1,31 @@
+# TODO: update docker version
+version: '2.17'
+services:
+  data-container:
+    build: ./data-container/
+    networks:
+      - persist-net
+    volumes:
+      - db-data:/var/lib/docker/volumes/data
+  pg:
+    build: ./pg/
+    environment:
+      POSTGRES_PASSWORD: admin
+    networks:
+      - persist-net
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg/pgdata:/var/lib/postgresql/data
+      - db-data:/var/lib/docker/volumes/data
+    depends_on:
+      - data-container
+
+volumes:
+  db-data:
+
+
+networks:
+  persist-net:
+    external: false
+    driver: bridge
