@@ -1,10 +1,3 @@
--------------------------------------
--- Create user and database
--------------------------------------
-CREATE USER dev PASSWORD 'password';
-CREATE DATABASE adventuredb;
-GRANT ALL PRIVILEGES ON DATABASE adventuredb TO dev;
-
 \pset tuples_only on
 
 -- Support to auto-generate UUIDs (aka GUIDs)
@@ -133,31 +126,31 @@ CREATE SCHEMA Person
 COMMENT ON SCHEMA Person IS 'Contains objects related to names and addresses of customers, vendors, and employees';
 
 SELECT 'Copying data into Person.BusinessEntity';
-\copy Person.BusinessEntity FROM '/var/lib/docker/volumes/data/BusinessEntity.csv' DELIMITER E'\t' CSV;
+\copy Person.BusinessEntity FROM '/docker-entrypoint-initdb.d/BusinessEntity.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.Person';
-\copy Person.Person FROM '/var/lib/docker/volumes/data/Person.csv' DELIMITER E'\t' CSV;
+\copy Person.Person FROM '/docker-entrypoint-initdb.d/Person.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.StateProvince';
-\copy Person.StateProvince FROM '/var/lib/docker/volumes/data/StateProvince.csv' DELIMITER E'\t' CSV;
+\copy Person.StateProvince FROM '/docker-entrypoint-initdb.d/StateProvince.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.Address';
-\copy Person.Address FROM '/var/lib/docker/volumes/data/Address.csv' DELIMITER E'\t' CSV ENCODING 'latin1';
+\copy Person.Address FROM '/docker-entrypoint-initdb.d/Address.csv' DELIMITER E'\t' CSV ENCODING 'latin1';
 SELECT 'Copying data into Person.AddressType';
-\copy Person.AddressType FROM '/var/lib/docker/volumes/data/AddressType.csv' DELIMITER E'\t' CSV;
+\copy Person.AddressType FROM '/docker-entrypoint-initdb.d/AddressType.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.BusinessEntityAddress';
-\copy Person.BusinessEntityAddress FROM '/var/lib/docker/volumes/data/BusinessEntityAddress.csv' DELIMITER E'\t' CSV;
+\copy Person.BusinessEntityAddress FROM '/docker-entrypoint-initdb.d/BusinessEntityAddress.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.ContactType';
-\copy Person.ContactType FROM '/var/lib/docker/volumes/data/ContactType.csv' DELIMITER E'\t' CSV;
+\copy Person.ContactType FROM '/docker-entrypoint-initdb.d/ContactType.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.BusinessEntityContact';
-\copy Person.BusinessEntityContact FROM '/var/lib/docker/volumes/data/BusinessEntityContact.csv' DELIMITER E'\t' CSV;
+\copy Person.BusinessEntityContact FROM '/docker-entrypoint-initdb.d/BusinessEntityContact.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.EmailAddress';
-\copy Person.EmailAddress FROM '/var/lib/docker/volumes/data/EmailAddress.csv' DELIMITER E'\t' CSV;
+\copy Person.EmailAddress FROM '/docker-entrypoint-initdb.d/EmailAddress.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.Password';
-\copy Person.Password FROM '/var/lib/docker/volumes/data/Password.csv' DELIMITER E'\t' CSV;
+\copy Person.Password FROM '/docker-entrypoint-initdb.d/Password.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.PhoneNumberType';
-\copy Person.PhoneNumberType FROM '/var/lib/docker/volumes/data/PhoneNumberType.csv' DELIMITER E'\t' CSV;
+\copy Person.PhoneNumberType FROM '/docker-entrypoint-initdb.d/PhoneNumberType.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.PersonPhone';
-\copy Person.PersonPhone FROM '/var/lib/docker/volumes/data/PersonPhone.csv' DELIMITER E'\t' CSV;
+\copy Person.PersonPhone FROM '/docker-entrypoint-initdb.d/PersonPhone.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.CountryRegion';
-\copy Person.CountryRegion FROM '/var/lib/docker/volumes/data/CountryRegion.csv' DELIMITER E'\t' CSV;
+\copy Person.CountryRegion FROM '/docker-entrypoint-initdb.d/CountryRegion.csv' DELIMITER E'\t' CSV;
 
 
 CREATE SCHEMA HumanResources
@@ -226,17 +219,17 @@ CREATE SCHEMA HumanResources
 COMMENT ON SCHEMA HumanResources IS 'Contains objects related to employees and departments.';
 
 SELECT 'Copying data into HumanResources.Department';
-\copy HumanResources.Department FROM '/var/lib/docker/volumes/data/Department.csv' DELIMITER E'\t' CSV;
+\copy HumanResources.Department FROM '/docker-entrypoint-initdb.d/Department.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into HumanResources.Employee';
-\copy HumanResources.Employee FROM '/var/lib/docker/volumes/data/Employee.csv' DELIMITER E'\t' CSV;
+\copy HumanResources.Employee FROM '/docker-entrypoint-initdb.d/Employee.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into HumanResources.EmployeeDepartmentHistory';
-\copy HumanResources.EmployeeDepartmentHistory FROM '/var/lib/docker/volumes/data/EmployeeDepartmentHistory.csv' DELIMITER E'\t' CSV;
+\copy HumanResources.EmployeeDepartmentHistory FROM '/docker-entrypoint-initdb.d/EmployeeDepartmentHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into HumanResources.EmployeePayHistory';
-\copy HumanResources.EmployeePayHistory FROM '/var/lib/docker/volumes/data/EmployeePayHistory.csv' DELIMITER E'\t' CSV;
+\copy HumanResources.EmployeePayHistory FROM '/docker-entrypoint-initdb.d/EmployeePayHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into HumanResources.JobCandidate';
-\copy HumanResources.JobCandidate FROM '/var/lib/docker/volumes/data/JobCandidate.csv' DELIMITER E'\t' CSV ENCODING 'latin1';
+\copy HumanResources.JobCandidate FROM '/docker-entrypoint-initdb.d/JobCandidate.csv' DELIMITER E'\t' CSV ENCODING 'latin1';
 SELECT 'Copying data into HumanResources.Shift';
-\copy HumanResources.Shift FROM '/var/lib/docker/volumes/data/Shift.csv' DELIMITER E'\t' CSV;
+\copy HumanResources.Shift FROM '/docker-entrypoint-initdb.d/Shift.csv' DELIMITER E'\t' CSV;
 
 -- Calculated column that needed to be there just for the CSV import
 ALTER TABLE HumanResources.Employee DROP COLUMN OrganizationLevel;
@@ -585,55 +578,55 @@ CREATE SCHEMA Production
 COMMENT ON SCHEMA Production IS 'Contains objects related to products, inventory, and manufacturing.';
 
 SELECT 'Copying data into Production.BillOfMaterials';
-\copy Production.BillOfMaterials FROM '/var/lib/docker/volumes/data/BillOfMaterials.csv' DELIMITER E'\t' CSV;
+\copy Production.BillOfMaterials FROM '/docker-entrypoint-initdb.d/BillOfMaterials.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.Culture';
-\copy Production.Culture FROM '/var/lib/docker/volumes/data/Culture.csv' DELIMITER E'\t' CSV;
+\copy Production.Culture FROM '/docker-entrypoint-initdb.d/Culture.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.Document';
-\copy Production.Document FROM '/var/lib/docker/volumes/data/Document.csv' DELIMITER E'\t' CSV;
+\copy Production.Document FROM '/docker-entrypoint-initdb.d/Document.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductCategory';
-\copy Production.ProductCategory FROM '/var/lib/docker/volumes/data/ProductCategory.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductCategory FROM '/docker-entrypoint-initdb.d/ProductCategory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductSubcategory';
-\copy Production.ProductSubcategory FROM '/var/lib/docker/volumes/data/ProductSubcategory.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductSubcategory FROM '/docker-entrypoint-initdb.d/ProductSubcategory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductModel';
-\copy Production.ProductModel FROM '/var/lib/docker/volumes/data/ProductModel.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductModel FROM '/docker-entrypoint-initdb.d/ProductModel.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.Product';
-\copy Production.Product FROM '/var/lib/docker/volumes/data/Product.csv' DELIMITER E'\t' CSV;
+\copy Production.Product FROM '/docker-entrypoint-initdb.d/Product.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductCostHistory';
-\copy Production.ProductCostHistory FROM '/var/lib/docker/volumes/data/ProductCostHistory.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductCostHistory FROM '/docker-entrypoint-initdb.d/ProductCostHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductDescription';
-\copy Production.ProductDescription FROM '/var/lib/docker/volumes/data/ProductDescription.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductDescription FROM '/docker-entrypoint-initdb.d/ProductDescription.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductDocument';
-\copy Production.ProductDocument FROM '/var/lib/docker/volumes/data/ProductDocument.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductDocument FROM '/docker-entrypoint-initdb.d/ProductDocument.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.Location';
-\copy Production.Location FROM '/var/lib/docker/volumes/data/Location.csv' DELIMITER E'\t' CSV;
+\copy Production.Location FROM '/docker-entrypoint-initdb.d/Location.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductInventory';
-\copy Production.ProductInventory FROM '/var/lib/docker/volumes/data/ProductInventory.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductInventory FROM '/docker-entrypoint-initdb.d/ProductInventory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductListPriceHistory';
-\copy Production.ProductListPriceHistory FROM '/var/lib/docker/volumes/data/ProductListPriceHistory.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductListPriceHistory FROM '/docker-entrypoint-initdb.d/ProductListPriceHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.Illustration';
-\copy Production.Illustration FROM '/var/lib/docker/volumes/data/Illustration.csv' DELIMITER E'\t' CSV;
+\copy Production.Illustration FROM '/docker-entrypoint-initdb.d/Illustration.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductModelIllustration';
-\copy Production.ProductModelIllustration FROM '/var/lib/docker/volumes/data/ProductModelIllustration.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductModelIllustration FROM '/docker-entrypoint-initdb.d/ProductModelIllustration.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductModelProductDescriptionCulture';
-\copy Production.ProductModelProductDescriptionCulture FROM '/var/lib/docker/volumes/data/ProductModelProductDescriptionCulture.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductModelProductDescriptionCulture FROM '/docker-entrypoint-initdb.d/ProductModelProductDescriptionCulture.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductPhoto';
-\copy Production.ProductPhoto FROM '/var/lib/docker/volumes/data/ProductPhoto.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductPhoto FROM '/docker-entrypoint-initdb.d/ProductPhoto.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductProductPhoto';
-\copy Production.ProductProductPhoto FROM '/var/lib/docker/volumes/data/ProductProductPhoto.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductProductPhoto FROM '/docker-entrypoint-initdb.d/ProductProductPhoto.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductReview';
-\copy Production.ProductReview FROM '/var/lib/docker/volumes/data/ProductReview.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductReview FROM '/docker-entrypoint-initdb.d/ProductReview.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ScrapReason';
-\copy Production.ScrapReason FROM '/var/lib/docker/volumes/data/ScrapReason.csv' DELIMITER E'\t' CSV;
+\copy Production.ScrapReason FROM '/docker-entrypoint-initdb.d/ScrapReason.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.TransactionHistory';
-\copy Production.TransactionHistory FROM '/var/lib/docker/volumes/data/TransactionHistory.csv' DELIMITER E'\t' CSV;
+\copy Production.TransactionHistory FROM '/docker-entrypoint-initdb.d/TransactionHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.TransactionHistoryArchive';
-\copy Production.TransactionHistoryArchive FROM '/var/lib/docker/volumes/data/TransactionHistoryArchive.csv' DELIMITER E'\t' CSV;
+\copy Production.TransactionHistoryArchive FROM '/docker-entrypoint-initdb.d/TransactionHistoryArchive.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.UnitMeasure';
-\copy Production.UnitMeasure FROM '/var/lib/docker/volumes/data/UnitMeasure.csv' DELIMITER E'\t' CSV;
+\copy Production.UnitMeasure FROM '/docker-entrypoint-initdb.d/UnitMeasure.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.WorkOrder';
-\copy Production.WorkOrder FROM '/var/lib/docker/volumes/data/WorkOrder.csv' DELIMITER E'\t' CSV;
+\copy Production.WorkOrder FROM '/docker-entrypoint-initdb.d/WorkOrder.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.WorkOrderRouting';
-\copy Production.WorkOrderRouting FROM '/var/lib/docker/volumes/data/WorkOrderRouting.csv' DELIMITER E'\t' CSV;
+\copy Production.WorkOrderRouting FROM '/docker-entrypoint-initdb.d/WorkOrderRouting.csv' DELIMITER E'\t' CSV;
 
 -- Calculated columns that needed to be there just for the CSV import
 ALTER TABLE Production.WorkOrder DROP COLUMN StockedQty;
@@ -887,15 +880,15 @@ CREATE SCHEMA Purchasing
 COMMENT ON SCHEMA Purchasing IS 'Contains objects related to vendors and purchase orders.';
 
 SELECT 'Copying data into Purchasing.ProductVendor';
-\copy Purchasing.ProductVendor FROM '/var/lib/docker/volumes/data/ProductVendor.csv' DELIMITER E'\t' CSV;
+\copy Purchasing.ProductVendor FROM '/docker-entrypoint-initdb.d/ProductVendor.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Purchasing.PurchaseOrderDetail';
-\copy Purchasing.PurchaseOrderDetail FROM '/var/lib/docker/volumes/data/PurchaseOrderDetail.csv' DELIMITER E'\t' CSV;
+\copy Purchasing.PurchaseOrderDetail FROM '/docker-entrypoint-initdb.d/PurchaseOrderDetail.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Purchasing.PurchaseOrderHeader';
-\copy Purchasing.PurchaseOrderHeader FROM '/var/lib/docker/volumes/data/PurchaseOrderHeader.csv' DELIMITER E'\t' CSV;
+\copy Purchasing.PurchaseOrderHeader FROM '/docker-entrypoint-initdb.d/PurchaseOrderHeader.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Purchasing.ShipMethod';
-\copy Purchasing.ShipMethod FROM '/var/lib/docker/volumes/data/ShipMethod.csv' DELIMITER E'\t' CSV;
+\copy Purchasing.ShipMethod FROM '/docker-entrypoint-initdb.d/ShipMethod.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Purchasing.Vendor';
-\copy Purchasing.Vendor FROM '/var/lib/docker/volumes/data/Vendor.csv' DELIMITER E'\t' CSV;
+\copy Purchasing.Vendor FROM '/docker-entrypoint-initdb.d/Vendor.csv' DELIMITER E'\t' CSV;
 
 -- Calculated columns that needed to be there just for the CSV import
 ALTER TABLE Purchasing.PurchaseOrderDetail DROP COLUMN LineTotal;
@@ -1111,43 +1104,43 @@ CREATE SCHEMA Sales
 COMMENT ON SCHEMA Sales IS 'Contains objects related to customers, sales orders, and sales territories.';
 
 SELECT 'Copying data into Sales.CountryRegionCurrency';
-\copy Sales.CountryRegionCurrency FROM '/var/lib/docker/volumes/data/CountryRegionCurrency.csv' DELIMITER E'\t' CSV;
+\copy Sales.CountryRegionCurrency FROM '/docker-entrypoint-initdb.d/CountryRegionCurrency.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.CreditCard';
-\copy Sales.CreditCard FROM '/var/lib/docker/volumes/data/CreditCard.csv' DELIMITER E'\t' CSV;
+\copy Sales.CreditCard FROM '/docker-entrypoint-initdb.d/CreditCard.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.Currency';
-\copy Sales.Currency FROM '/var/lib/docker/volumes/data/Currency.csv' DELIMITER E'\t' CSV;
+\copy Sales.Currency FROM '/docker-entrypoint-initdb.d/Currency.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.CurrencyRate';
-\copy Sales.CurrencyRate FROM '/var/lib/docker/volumes/data/CurrencyRate.csv' DELIMITER E'\t' CSV;
+\copy Sales.CurrencyRate FROM '/docker-entrypoint-initdb.d/CurrencyRate.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.Customer';
-\copy Sales.Customer FROM '/var/lib/docker/volumes/data/Customer.csv' DELIMITER E'\t' CSV;
+\copy Sales.Customer FROM '/docker-entrypoint-initdb.d/Customer.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.PersonCreditCard';
-\copy Sales.PersonCreditCard FROM '/var/lib/docker/volumes/data/PersonCreditCard.csv' DELIMITER E'\t' CSV;
+\copy Sales.PersonCreditCard FROM '/docker-entrypoint-initdb.d/PersonCreditCard.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesOrderDetail';
-\copy Sales.SalesOrderDetail FROM '/var/lib/docker/volumes/data/SalesOrderDetail.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesOrderDetail FROM '/docker-entrypoint-initdb.d/SalesOrderDetail.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesOrderHeader';
-\copy Sales.SalesOrderHeader FROM '/var/lib/docker/volumes/data/SalesOrderHeader.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesOrderHeader FROM '/docker-entrypoint-initdb.d/SalesOrderHeader.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesOrderHeaderSalesReason';
-\copy Sales.SalesOrderHeaderSalesReason FROM '/var/lib/docker/volumes/data/SalesOrderHeaderSalesReason.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesOrderHeaderSalesReason FROM '/docker-entrypoint-initdb.d/SalesOrderHeaderSalesReason.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesPerson';
-\copy Sales.SalesPerson FROM '/var/lib/docker/volumes/data/SalesPerson.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesPerson FROM '/docker-entrypoint-initdb.d/SalesPerson.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesPersonQuotaHistory';
-\copy Sales.SalesPersonQuotaHistory FROM '/var/lib/docker/volumes/data/SalesPersonQuotaHistory.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesPersonQuotaHistory FROM '/docker-entrypoint-initdb.d/SalesPersonQuotaHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesReason';
-\copy Sales.SalesReason FROM '/var/lib/docker/volumes/data/SalesReason.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesReason FROM '/docker-entrypoint-initdb.d/SalesReason.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesTaxRate';
-\copy Sales.SalesTaxRate FROM '/var/lib/docker/volumes/data/SalesTaxRate.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesTaxRate FROM '/docker-entrypoint-initdb.d/SalesTaxRate.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesTerritory';
-\copy Sales.SalesTerritory FROM '/var/lib/docker/volumes/data/SalesTerritory.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesTerritory FROM '/docker-entrypoint-initdb.d/SalesTerritory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SalesTerritoryHistory';
-\copy Sales.SalesTerritoryHistory FROM '/var/lib/docker/volumes/data/SalesTerritoryHistory.csv' DELIMITER E'\t' CSV;
+\copy Sales.SalesTerritoryHistory FROM '/docker-entrypoint-initdb.d/SalesTerritoryHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.ShoppingCartItem';
-\copy Sales.ShoppingCartItem FROM '/var/lib/docker/volumes/data/ShoppingCartItem.csv' DELIMITER E'\t' CSV;
+\copy Sales.ShoppingCartItem FROM '/docker-entrypoint-initdb.d/ShoppingCartItem.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SpecialOffer';
-\copy Sales.SpecialOffer FROM '/var/lib/docker/volumes/data/SpecialOffer.csv' DELIMITER E'\t' CSV;
+\copy Sales.SpecialOffer FROM '/docker-entrypoint-initdb.d/SpecialOffer.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.SpecialOfferProduct';
-\copy Sales.SpecialOfferProduct FROM '/var/lib/docker/volumes/data/SpecialOfferProduct.csv' DELIMITER E'\t' CSV;
+\copy Sales.SpecialOfferProduct FROM '/docker-entrypoint-initdb.d/SpecialOfferProduct.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Sales.Store';
-\copy Sales.Store FROM '/var/lib/docker/volumes/data/Store.csv' DELIMITER E'\t' CSV;
+\copy Sales.Store FROM '/docker-entrypoint-initdb.d/Store.csv' DELIMITER E'\t' CSV;
 
 -- Calculated columns that needed to be there just for the CSV import
 ALTER TABLE Sales.Customer DROP COLUMN AccountNumber;

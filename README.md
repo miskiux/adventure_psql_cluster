@@ -1,1 +1,1 @@
-psql -h localhost -d adventuredb -U dev -p 5432
+v1 single-primary multi-standby system
