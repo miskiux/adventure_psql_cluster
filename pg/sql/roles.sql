@@ -1,1 +1,0 @@
-CREATE USER replicator WITH REPLICATION ENCRYPTED PASSWORD 'my_replicator_password';
